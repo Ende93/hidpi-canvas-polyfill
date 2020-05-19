@@ -29,6 +29,7 @@
 			'lineTo': 'all',
 			'arc': [0,1,2],
 			'arcTo': 'all',
+			'drawImage': 'all',
 			'bezierCurveTo': 'all',
 			'isPointinPath': 'all',
 			'isPointinStroke': 'all',
@@ -49,12 +50,14 @@
 
 				if (value === 'all') {
 					args = args.map(function(a) {
-						return a * pixelRatio;
+						return typeof a === 'number' ? a * pixelRatio : a;
 					});
 				}
 				else if (Array.isArray(value)) {
 					for (i = 0, len = value.length; i < len; i++) {
-						args[value[i]] *= pixelRatio;
+						if (typeof args[value[i]] === 'number') {
+							args[value[i]] *= pixelRatio;
+						}
 					}
 				}
 
